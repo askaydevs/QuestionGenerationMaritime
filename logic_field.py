@@ -19,12 +19,33 @@ def extract_text_from_pdf(pdf_path):
 extract_text_from_pdf('Solverminds_Data/Sample/004.pdf')
 '''
 
-def pdf_to_text(filepath):
-    print('Getting text content for {}...'.format(filepath))
-    process = subprocess.Popen(['pdf2txt.py', filepath], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    stdout, stderr = process.communicate()
 
-    if process.returncode != 0 or stderr:
-        raise OSError('Executing the command for {} caused an error:\nCode: {}\nOutput: {}\nError: {}'.format(filepath, process.returncode, stdout, stderr))
+import PyPDF2
+from os import listdir
+from os.path import isfile, join
 
-    return stdout.decode('utf-8')
+path = '/home/askaydevs/Documents/Merged'
+onlyfiles = [f for f in listdir(path) if isfile(join(path, f)) and f.endswith('.pdf')]
+def pdf_to_text(file_path):
+    input = PyPDF2.PdfFileReader(open(file_path, 'rb'))
+    if input.isEncrypted:
+        pass
+    else:
+        text = ""
+        for _ in range (0, input.getNumPages()):
+            text += input.getPage(_).extractText()
+    return len(text)
+
+print(pdf_to_text('Solverminds_Data/Sample/004.pdf'))
+#def get_len_of_docs()
+'''
+lengths = []
+n = 0
+for file in onlyfiles:
+    lengths.append(pdf_to_text(join(path, file)))
+    per = n/2291*100
+    n += 1
+    print(str(int(per)) + '%')
+
+print(len(lengths))
+'''
