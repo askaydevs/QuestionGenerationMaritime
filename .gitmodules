@@ -1,0 +1,6 @@
+[submodule "Unsuperv"]
+	path = Unsuperv
+	url = https://github.com/facebookresearch/UnsupervisedQA.git
+[submodule "uqa37"]
+	path = uqa37
+	url = https://github.com/facebookresearch/UnsupervisedQA.git
